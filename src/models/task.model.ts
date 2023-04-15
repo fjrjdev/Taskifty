@@ -42,6 +42,10 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  __v: {
+    type: Number,
+    select: false,
+  },
 });
 
 export const Task = mongoose.model<ITask>("Task", taskSchema);
