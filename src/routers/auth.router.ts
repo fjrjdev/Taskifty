@@ -14,8 +14,8 @@ router.post("/signin", async (req, res) => {
   return res.status(200).send({ ...tokens });
 });
 router.post("/refresh", async (req, res) => {
-    const accessToken = await AuthService.refresh(req.body);
-    return res.status(200).send({ ...accessToken });
-  });
+  const accessToken = await AuthService.refresh(req.body);
+  return res.status(200).send({ ...accessToken });
+});
 
 export default router;
