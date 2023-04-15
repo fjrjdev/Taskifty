@@ -1,12 +1,13 @@
 import { Router } from "express";
-import authService from "../services/auth.service";
+import AuthService from "../services/auth.service";
+import { IUser } from "../models/user.model";
 
 
 const router = Router()
 
 router.post('/signup', async(req, res) => {
-    const user = await authService.create(req.body)
-    return res.status(201).send({user})
+    const data = await AuthService.create(req.body)
+    return res.status(201).send({results: data})
 } 
 )
 
