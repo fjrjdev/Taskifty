@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
-import * as dotenv from 'dotenv';
+import config from ".";
 
-dotenv.config();
 mongoose.set("strictQuery", false);
-const databaseURL = process.env.DATABASE_URL;
 
-export default mongoose.connect(databaseURL!);
+export default mongoose.connect(config.databaseURL!);
