@@ -1,13 +1,15 @@
-import { IUser } from "../models/user.model";
-import UserRepository from "../repositories/user.repository";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
+
+import config from "../config";
 import AppError from "../errors/appError";
 
-dotenv.config();
-const secretJWT = process.env.JWT_SECRET_KEY || "";
+import UserRepository from "../repositories/user.repository";
+import { IUser } from "../models/user.model";
 
+export interface IRefresh {
+  refresh: string;
+}
 class AuthService {
   async create(user: IUser) {
     if (user.password!) {
@@ -15,7 +17,7 @@ class AuthService {
     }
     return UserRepository.create(user);
   }
-  async login(email: string, password: string) {
+  async login({ email, password }: IUser) {
     const emailExists = UserRepository.verifyIfEmailExists(email);
     if (!emailExists) {
       throw new AppError(404, "User not found!");
@@ -27,14 +29,37 @@ class AuthService {
     }
 
     const result = await bcrypt.compare(password, user.password);
-
     if (result) {
-      return jwt.sign({ email: user.email, _id: user._id }, secretJWT, {
-        expiresIn: "1d",
+      const payload = { _id: user._id };
+      const accessToken = jwt.sign(payload, config.jwtSecret, {
+        expiresIn: config.jwtExpirationTime,
       });
+      const refresh = jwt.sign(payload, config.refreshTokenSecret, {
+        expiresIn: config.refreshTokenExpirationTime,
+      });
+      return { accessToken, refresh };
     }
 
-    throw new AppError(401, "Invalid credentials");
+    throw new AppError(401, "Invalid Email or Password");
+  }
+
+  async refresh({ refresh }: IRefresh) {
+    let userId;
+    try {
+      const decoded: any = jwt.verify(refresh, config.refreshTokenSecret);
+      userId = decoded._id;
+    } catch (e) {
+      throw new AppError(403, "Invalid refresh token.");
+    }
+    const userExists = UserRepository.verifyIfIdExists(userId);
+    if (!userExists) {
+      throw new AppError(404, "User not Found");
+    }
+    const payload = { _id: userId };
+    const accessToken = jwt.sign(payload, config.jwtSecret, {
+      expiresIn: config.jwtExpirationTime,
+    });
+    return {accessToken}
   }
 }
 
