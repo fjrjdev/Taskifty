@@ -1,6 +1,6 @@
 import { Router } from "express";
 import AuthService from "../services/auth.service";
-import { IUser } from "../models/user.model";
+
 
 const router = Router();
 

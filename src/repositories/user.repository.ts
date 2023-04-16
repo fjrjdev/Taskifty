@@ -5,7 +5,7 @@ class UserRepository {
     return User.find();
   }
   getById(id: string) {
-    return User.findOne({ _id: id });
+    return User.findOne({ _id: id }).select('-password');
   }
   getByEmail(email: string) {
     return User.findOne({ email: email });

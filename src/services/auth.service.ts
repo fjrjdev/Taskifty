@@ -27,7 +27,6 @@ class AuthService {
     if (!user) {
       throw new AppError(404, "User not found!");
     }
-    console.log( password, user)
     const result = await bcrypt.compare(password, user.password);
     if (result) {
       const payload = { _id: user._id };
