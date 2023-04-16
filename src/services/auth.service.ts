@@ -17,6 +17,7 @@ class AuthService {
     }
     return UserRepository.create(user);
   }
+
   async login({ email, password }: IUser) {
     const emailExists = UserRepository.verifyIfEmailExists(email);
     if (!emailExists) {
@@ -28,18 +29,18 @@ class AuthService {
       throw new AppError(404, "User not found!");
     }
     const result = await bcrypt.compare(password, user.password);
-    if (result) {
-      const payload = { _id: user._id };
-      const accessToken = jwt.sign(payload, config.jwtSecret, {
-        expiresIn: config.jwtExpirationTime,
-      });
-      const refresh = jwt.sign(payload, config.refreshTokenSecret, {
-        expiresIn: config.refreshTokenExpirationTime,
-      });
-      return { accessToken, refresh };
+    if (!result) {
+      throw new AppError(401, "Invalid Email or Password");
     }
 
-    throw new AppError(401, "Invalid Email or Password");
+    const payload = { _id: user._id };
+    const accessToken = jwt.sign(payload, config.jwtSecret, {
+      expiresIn: config.jwtExpirationTime,
+    });
+    const refresh = jwt.sign(payload, config.refreshTokenSecret, {
+      expiresIn: config.refreshTokenExpirationTime,
+    });
+    return { accessToken, refresh };
   }
 
   async refresh({ refresh }: IRefresh) {
