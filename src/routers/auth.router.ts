@@ -5,8 +5,8 @@ import AuthService from "../services/auth.service";
 const router = Router();
 
 router.post("/signup", async (req, res) => {
-  const data = await AuthService.create(req.body);
-  return res.status(201).send({ results: data });
+  await AuthService.create(req.body);
+  return res.status(201).send({ status: "success", message: "User created with success", code: 201 });
 });
 
 router.post("/signin", async (req, res) => {

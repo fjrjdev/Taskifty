@@ -12,6 +12,10 @@ export interface IRefresh {
 }
 class AuthService {
   async create(user: IUser) {
+    const emailExists = await UserRepository.verifyIfEmailExists(user.email);
+    if (emailExists) {
+      throw new AppError(409, "Email already registered");
+    }
     if (user.password!) {
       user.password = await bcrypt.hash(user.password, 10);
     }
@@ -19,7 +23,7 @@ class AuthService {
   }
 
   async login({ email, password }: IUser) {
-    const emailExists = UserRepository.verifyIfEmailExists(email);
+    const emailExists = await UserRepository.verifyIfEmailExists(email);
     if (!emailExists) {
       throw new AppError(404, "User not found!");
     }
@@ -51,7 +55,7 @@ class AuthService {
     } catch (e) {
       throw new AppError(403, "Invalid refresh token.");
     }
-    const userExists = UserRepository.verifyIfIdExists(userId);
+    const userExists = await UserRepository.verifyIfIdExists(userId);
     if (!userExists) {
       throw new AppError(404, "User not Found");
     }

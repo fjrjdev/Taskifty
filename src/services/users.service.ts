@@ -3,7 +3,6 @@ import UserRepository from "../repositories/user.repository";
 
 class UsersService {
   getById(id: string) {
-    console.log(id);
     return UserRepository.getById(id);
   }
   update(id: string, user: Partial<IUser>) {

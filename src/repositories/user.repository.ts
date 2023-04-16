@@ -14,7 +14,7 @@ class UserRepository {
     return User.create(user);
   }
   update(id: string, user: Partial<IUser>) {
-    return User.findOneAndUpdate({ _id: id }, user, { new: true });
+    return User.findOneAndUpdate({ _id: id }, user, { new: true }).select('-password');
   }
   remove(id: string) {
     return User.deleteOne({ _id: id });
