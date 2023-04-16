@@ -10,7 +10,7 @@ Taskify é um aplicativo de gerenciamento de tarefas que ajuda a organizar ativi
 - Acompanhe o status das tarefas em uma visualização de lista;
 - Crie categorias para organizar as tarefas.
 
-# Recursos adicionais
+# Recursos futuros
 
 - Adicionar colaboradores para compartilhar tarefas;
 - Criar visualizações diferentes para as tarefas (por exemplo, visualização de calendário);
