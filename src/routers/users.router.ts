@@ -17,7 +17,7 @@ router.put("/update", authMiddleware, async (req: Request, res: Response) => {
 
 router.delete("/delete", authMiddleware, async (req: Request, res: Response) => {
   await UsersService.remove(req.user.id);
-  return res.status(204);
+  return res.status(204).send();
 })
 
 export default router;

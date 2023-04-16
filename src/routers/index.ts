@@ -1,7 +1,9 @@
 import { Router } from "express";
-import usersRouter from "./users.router";
-import authRouter from "./auth.router";
 import AppError from "../errors/appError";
+
+import authRouter from "./auth.router";
+import usersRouter from "./users.router";
+import tasksRouter from "./tasks.router"
 
 const routes = Router();
 
@@ -10,5 +12,6 @@ routes.get("/error", (req, res) => {
 });
 routes.use("/user", usersRouter);
 routes.use("/auth", authRouter);
+routes.use('/task',tasksRouter)
 
 export default routes;
