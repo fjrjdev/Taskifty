@@ -1,20 +1,20 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { IUser } from "./user.model";
-import { ICategory } from "./category.model";
 
-export interface ITask {
+
+export interface ITask extends Document {
   name: string;
   description: string;
   status: "to do" | "in progress" | "done";
-  category: ICategory;
+  category: string;
   assignedTo: IUser;
   dueDate: string | Date;
   createdAt: string | Date;
   updatedAt: string | Date;
-  createdBy: IUser;
-  updatedBy: IUser;
+  createdBy: string;
+  updatedBy: string;
 }
-const taskSchema = new mongoose.Schema({
+export const taskSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -26,8 +26,8 @@ const taskSchema = new mongoose.Schema({
     default: "to do",
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Category",
+    type: String,
+    default: "Not defined"
   },
   assignedTo: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   dueDate: { type: Date, required: true },
