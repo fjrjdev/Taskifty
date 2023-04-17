@@ -6,6 +6,9 @@ class TasksService {
   async getAll() {
     return TaskRepository.getAll();
   }
+  async getAllByUser(createdBy:string) {
+    return TaskRepository.getAllByUser(createdBy);
+  }
   async create(createdBy: string, data: ITask) {
     data.createdBy = createdBy;
     return TaskRepository.create(data);

@@ -4,6 +4,9 @@ class TaskRepository {
   getAll() {
     return Task.find();
   }
+  getAllByUser(createdBy: string) {
+    return Task.find({createdBy: createdBy});
+  }
   getById(id: string) {
     return Task.findOne({ _id: id });
   }

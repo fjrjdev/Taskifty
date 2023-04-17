@@ -3,8 +3,8 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 import TasksService from "../services/tasks.service";
 
 const router = Router();
-router.get("/", async (req: Request, res: Response) => {
-  const tasks = await TasksService.getAll();
+router.get("/",authMiddleware ,async (req: Request, res: Response) => {
+  const tasks = await TasksService.getAllByUser(req.user.id);
   res.status(200).send({ results: tasks });
 });
 router.get("/:id", async (req: Request, res: Response) => {
