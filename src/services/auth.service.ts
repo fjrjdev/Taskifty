@@ -10,8 +10,11 @@ import { IUser } from "../models/user.model";
 export interface IRefresh {
   refresh: string;
 }
+
 class AuthService {
+  /*Responsável por fornecer serviços de autenticação para usuários do sistema */
   async create(user: IUser) {
+    /*Cria um novo usuário no sistema com os dados passados como parâmetro */
     const emailExists = await UserRepository.verifyIfEmailExists(user.email);
     if (emailExists) {
       throw new AppError(409, "Email already registered");
@@ -23,6 +26,7 @@ class AuthService {
   }
 
   async login({ email, password }: IUser) {
+    /*Realiza o login do usuário no sistema*/ 
     const emailExists = await UserRepository.verifyIfEmailExists(email);
     if (!emailExists) {
       throw new AppError(404, "User not found!");
@@ -48,6 +52,7 @@ class AuthService {
   }
 
   async refresh({ refresh }: IRefresh) {
+    /*Realiza a renovação do token de acesso do usuário */
     let userId;
     try {
       const decoded: any = jwt.verify(refresh, config.refreshTokenSecret);

@@ -3,9 +3,6 @@ import { ITask } from "../models/task.model";
 import TaskRepository from "../repositories/task.repository";
 
 class TasksService {
-  getAll() {
-    return TaskRepository.getAll();
-  }
   getAllByUser(createdBy: string) {
     return TaskRepository.getAllByUser(createdBy);
   }
@@ -21,6 +18,7 @@ class TasksService {
     return TaskRepository.getById(id);
   }
   async update(id: string, task: Partial<ITask>, user: string) {
+    /* Atualiza uma  Tarefa específica com o ID fornecido e a retorna. Verifica se o usuário é o criador da tarefa. */
     const taskExists = await TaskRepository.verifyIfIdExists(id);
     if (!taskExists) {
       throw new AppError(404, "Task not Found");
