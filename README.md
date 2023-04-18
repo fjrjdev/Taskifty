@@ -1,4 +1,4 @@
- <div ><img src="https://i.imgur.com/rgPZQwF.png" title="Logo" **alt="Git" width="300" height="300"/>&nbsp;
+ <div ><img src="https://i.imgur.com/rgPZQwF.png" title="Logo" **alt="Git" width="500" height="250"/>&nbsp;
  </div>
 # Taskifty
 
