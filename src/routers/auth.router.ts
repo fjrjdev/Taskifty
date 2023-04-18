@@ -1,9 +1,11 @@
+import { schemasMiddleware } from "../middlewares/schemas.middleware";
 import { Router } from "express";
 import AuthService from "../services/auth.service";
+import { userSchema } from "../schemas/user";
 
 const router = Router();
 
-router.post("/signup", async (req, res) => {
+router.post("/signup", schemasMiddleware(userSchema), async (req, res) => {
   await AuthService.create(req.body);
   return res.status(201).send({
     status: "success",
