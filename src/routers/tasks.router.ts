@@ -3,7 +3,7 @@ import { authMiddleware } from "../middlewares/auth.middleware";
 import TasksService from "../services/tasks.service";
 
 const router = Router();
-router.get("/",authMiddleware ,async (req: Request, res: Response) => {
+router.get("/", authMiddleware, async (req: Request, res: Response) => {
   const tasks = await TasksService.getAllByUser(req.user.id);
   res.status(200).send({ results: tasks });
 });
@@ -23,10 +23,14 @@ router.put(
   "/update/:id",
   authMiddleware,
   async (req: Request, res: Response) => {
-    const results = await TasksService.update(req.params.id, req.body, req.user.id);
+    const results = await TasksService.update(
+      req.params.id,
+      req.body,
+      req.user.id
+    );
     return res.status(200).send({ results });
   }
-)
+);
 router.delete(
   "/delete/:id",
   authMiddleware,

@@ -6,7 +6,7 @@ class TaskListRepository {
     return TaskList.find();
   }
   getAllSharedWith(id: string) {
-    return TaskList.find({sharedWith : id});
+    return TaskList.find({ sharedWith: id });
   }
   getAllByUser(createdBy: string) {
     return TaskList.find({ createdBy: createdBy });
@@ -15,7 +15,7 @@ class TaskListRepository {
     return TaskList.findOne({ _id: id });
   }
   getByIdDetail(id: string) {
-    return TaskList.findOne({ _id: id }).populate('tasks');
+    return TaskList.findOne({ _id: id }).populate("tasks");
   }
   create(tasklist: ITaskList) {
     return TaskList.create(tasklist);

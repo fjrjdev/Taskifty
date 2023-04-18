@@ -1,7 +1,6 @@
 import mongoose, { Document } from "mongoose";
 import { IUser } from "./user.model";
 
-
 export interface ITask extends Document {
   name: string;
   description: string;
@@ -27,7 +26,7 @@ export const taskSchema = new mongoose.Schema({
   },
   category: {
     type: String,
-    default: "Not defined"
+    default: "Not defined",
   },
   assignedTo: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
   dueDate: { type: Date, required: true },

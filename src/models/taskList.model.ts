@@ -1,8 +1,6 @@
 import mongoose, { Document } from "mongoose";
-import { ITask } from "./task.model";
-import { IUser } from "./user.model";
 
-export interface ITaskList  extends Document{
+export interface ITaskList extends Document {
   name: string;
   tasks: string[];
   sharedWith: string[];

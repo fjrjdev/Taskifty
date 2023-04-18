@@ -3,10 +3,10 @@ import { ITask } from "../models/task.model";
 import TaskRepository from "../repositories/task.repository";
 
 class TasksService {
-  async getAll() {
+  getAll() {
     return TaskRepository.getAll();
   }
-  async getAllByUser(createdBy:string) {
+  getAllByUser(createdBy: string) {
     return TaskRepository.getAllByUser(createdBy);
   }
   async create(createdBy: string, data: ITask) {
@@ -33,10 +33,10 @@ class TasksService {
     if (strCreatedBy !== user) {
       throw new AppError(401, "You don't have permission to update this task");
     }
-    task.updatedBy = user
+    task.updatedBy = user;
     return TaskRepository.update(id, task);
   }
-  async remove(id: string, createdBy:string) {
+  async remove(id: string, createdBy: string) {
     const taskExists = await TaskRepository.verifyIfIdExists(id);
     if (!taskExists) {
       throw new AppError(404, "Task not Found");
