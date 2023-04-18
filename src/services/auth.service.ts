@@ -26,7 +26,7 @@ class AuthService {
   }
 
   async login({ email, password }: IUser) {
-    /*Realiza o login do usuário no sistema*/ 
+    /*Realiza o login do usuário no sistema*/
     const emailExists = await UserRepository.verifyIfEmailExists(email);
     if (!emailExists) {
       throw new AppError(404, "User not found!");

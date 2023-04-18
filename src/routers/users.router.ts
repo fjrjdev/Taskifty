@@ -1,6 +1,8 @@
 import { Router, Request, Response } from "express";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import UsersService from "../services/users.service";
+import { schemasMiddleware } from "../middlewares/schemas.middleware";
+import { userUpdateSchema } from "../schemas/user";
 
 const router = Router();
 router.get("/profile", authMiddleware, async (req: Request, res: Response) => {
@@ -8,7 +10,7 @@ router.get("/profile", authMiddleware, async (req: Request, res: Response) => {
   return res.status(200).send({ results });
 });
 
-router.put("/update", authMiddleware, async (req: Request, res: Response) => {
+router.put("/update", authMiddleware, schemasMiddleware(userUpdateSchema), async (req: Request, res: Response) => {
   const results = await UsersService.update(req.user.id, req.body);
   return res.status(200).send({ results });
 });

@@ -7,8 +7,8 @@ interface IUserSchema {
   password: string;
 }
 interface IUserUpdateSchema {
-  name: string;
-  email: string;
+  name?: string
+  email?: string;
 }
 export const userSchema: Schema<IUserSchema> = yup.object().shape({
   name: yup.string().required(),
@@ -23,6 +23,6 @@ export const userSchema: Schema<IUserSchema> = yup.object().shape({
 });
 
 export const userUpdateSchema: Schema<IUserUpdateSchema> = yup.object().shape({
-  name: yup.string().required(),
-  email: yup.string().required(),
+  name: yup.string(),
+  email: yup.string(),
 });

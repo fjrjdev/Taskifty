@@ -10,7 +10,17 @@ class UsersService {
     }
     return UserRepository.getById(id);
   }
-  update(id: string, user: Partial<IUser>) {
+  async update(id: string, user: Partial<IUser>) {
+    if (user.email !== undefined) {
+      const emailExists = await UserRepository.verifyIfEmailExists(user.email);
+      if (emailExists) {
+        throw new AppError(409, "Email already registered");
+      }
+    }
+    if (user.password !== undefined) {
+      throw new AppError(404, "Password cannot be changed on this route");
+    }
+
     return UserRepository.update(id, user);
   }
   remove(id: string) {
