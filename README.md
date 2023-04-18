@@ -1,4 +1,5 @@
- <img src="https://i.imgur.com/rgPZQwF.png" title="Logo" **alt="Git" width="300" height="100"/>&nbsp;
+ <div ><img src="https://i.imgur.com/rgPZQwF.png" title="Logo" **alt="Git" width="300" height="100"/>&nbsp;
+ </div>
 # Taskifty
 
 Taskify é um aplicativo de gerenciamento de tarefas que ajuda a organizar atividades diárias de forma simples e eficiente. Com ele, é possível criar, priorizar e acompanhar o status das tarefas, definir prazos, receber notificações e muito mais. Com uma interface intuitiva e recursos poderosos, o Taskify é a ferramenta ideal para aumentar a produtividade e manter o foco nas atividades mais importantes.
