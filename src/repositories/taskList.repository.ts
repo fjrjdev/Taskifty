@@ -1,14 +1,19 @@
+import { ITask } from "../models/task.model";
 import { TaskList, ITaskList } from "../models/taskList.model";
 
-class TaskRepository {
+class TaskListRepository {
   getAll() {
     return TaskList.find();
   }
+  getAllSharedWith(id: string) {}
   getAllByUser(createdBy: string) {
     return TaskList.find({ createdBy: createdBy });
   }
   getById(id: string) {
     return TaskList.findOne({ _id: id });
+  }
+  getByIdDetail(id: string) {
+    return TaskList.findOne({ _id: id }).populate('tasks');
   }
   create(tasklist: ITaskList) {
     return TaskList.create(tasklist);
@@ -22,5 +27,9 @@ class TaskRepository {
   verifyIfIdExists(id: string) {
     return TaskList.exists({ _id: id });
   }
+  createTaskOnList(taskList: ITaskList, task: ITask): void {
+    taskList.tasks.push(task._id);
+    taskList.save();
+  }
 }
-export default new TaskRepository();
+export default new TaskListRepository();
