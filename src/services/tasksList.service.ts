@@ -41,12 +41,12 @@ class TasksListService {
     return currentTaskList;
   }
   create(createdBy: string, taskList: ITaskList) {
-    /* Cria uma nova lista de tarefas com o usuário que a criou e a retorna.*/
+    /* Cria uma nova lista de tarefas compartilhada com o usuário que a criou.*/
     taskList.createdBy = createdBy;
     return TaskListRepository.create(taskList);
   }
   async update(id: string, taskList: Partial<ITaskList>, userId: string) {
-    /* Atualiza uma lista de tarefas específica com o ID fornecido e a retorna. Verifica se o usuário tem permissão para atualizar essa lista de tarefas. */
+    /* Atualiza uma lista de tarefas compartilhada com o ID fornecido e a retorna. Verifica se o usuário tem permissão para atualizar essa lista de tarefas. */
     const taskListExists = await TaskListRepository.verifyIfIdExists(id);
     if (!taskListExists) {
       throw new AppError(404, "Task not Found");
@@ -71,7 +71,7 @@ class TasksListService {
     return TaskListRepository.update(id, taskList);
   }
   async remove(taskListId: string, userId: string) {
-    /* Remove uma lista de tarefas específica pelo seu ID. Verifica se o usuário tem permissão para remover essa lista de tarefas.*/
+    /* Remove uma lista de tarefas compartilhada pelo seu ID. Verifica se o usuário tem permissão para remover essa lista de tarefas.*/
     const taskListExists = await TaskListRepository.verifyIfIdExists(
       taskListId
     );
@@ -97,7 +97,7 @@ class TasksListService {
     return TaskListRepository.remove(taskListId);
   }
   async addTaskToList(tasklistId: string, task: ITask, createdBy: string) {
-    /* Adiciona uma nova tarefa a uma lista de tarefas específica pelo seu ID e retorna a lista de tarefas atualizada.*/
+    /* Adiciona uma nova tarefa a uma lista de tarefas compartilhada pelo seu ID*/
     task.createdBy = createdBy;
     const newTask = await TaskRepository.create(task);
     const taskListExists = await TaskListRepository.verifyIfIdExists(

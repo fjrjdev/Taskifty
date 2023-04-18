@@ -2,6 +2,9 @@ import { Router, Request, Response } from "express";
 import { authMiddleware } from "../middlewares/auth.middleware";
 
 import TasksListService from "../services/tasksList.service";
+import { schemasMiddleware } from "../middlewares/schemas.middleware";
+import { taskListSchema, taskListUpdateSchema } from "../schemas/taskList.schema";
+import { taskSchema } from "../schemas/task.schema";
 
 const router = Router();
 router.get("/", authMiddleware, async (req: Request, res: Response) => {
@@ -20,7 +23,7 @@ router.get(
     res.status(200).send({ results: tasklist });
   }
 );
-router.post("/", authMiddleware, async (req: Request, res: Response) => {
+router.post("/", authMiddleware, schemasMiddleware(taskListSchema), async (req: Request, res: Response) => {
   await TasksListService.create(req.user.id, req.body);
   return res.status(201).send({
     status: "success",
@@ -31,6 +34,7 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
 router.put(
   "/update/:id",
   authMiddleware,
+  schemasMiddleware(taskListUpdateSchema),
   async (req: Request, res: Response) => {
     const results = await TasksListService.update(
       req.params.id,
@@ -51,6 +55,7 @@ router.delete(
 router.post(
   "/addtask/:id",
   authMiddleware,
+  schemasMiddleware(taskSchema),
   async (req: Request, res: Response) => {
     await TasksListService.addTaskToList(req.params.id, req.body, req.user.id);
     return res.status(201).send({
