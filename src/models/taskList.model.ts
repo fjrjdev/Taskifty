@@ -1,13 +1,13 @@
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { ITask } from "./task.model";
 import { IUser } from "./user.model";
 
-export interface ITaskList {
+export interface ITaskList  extends Document{
   name: string;
-  tasks: ITask[];
-  sharedWidth: IUser[];
-  createdBy: IUser;
-  updatedBy: IUser;
+  tasks: string[];
+  sharedWidth: string[];
+  createdBy: string;
+  updatedBy: string;
   createdAt: string | Date;
   updatedAt: string | Date;
 }

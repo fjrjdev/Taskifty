@@ -3,7 +3,8 @@ import AppError from "../errors/appError";
 
 import authRouter from "./auth.router";
 import usersRouter from "./users.router";
-import tasksRouter from "./tasks.router"
+import tasksRouter from "./tasks.router";
+import tasksLists from "./tasksList.router";
 
 const routes = Router();
 
@@ -12,6 +13,7 @@ routes.get("/error", (req, res) => {
 });
 routes.use("/user", usersRouter);
 routes.use("/auth", authRouter);
-routes.use('/task',tasksRouter)
+routes.use("/task", tasksRouter);
+routes.use("/tasklist", tasksLists);
 
 export default routes;

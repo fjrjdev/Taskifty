@@ -20,7 +20,7 @@ class TasksService {
     }
     return TaskRepository.getById(id);
   }
-  async update(id: string, task: Partial<ITask>, createdBy: string) {
+  async update(id: string, task: Partial<ITask>, user: string) {
     const taskExists = await TaskRepository.verifyIfIdExists(id);
     if (!taskExists) {
       throw new AppError(404, "Task not Found");
@@ -30,9 +30,10 @@ class TasksService {
       throw new AppError(404, "Task not Found");
     }
     const strCreatedBy = currentTask.createdBy.toString();
-    if (strCreatedBy !== createdBy) {
+    if (strCreatedBy !== user) {
       throw new AppError(401, "You don't have permission to update this task");
     }
+    task.updatedBy = user
     return TaskRepository.update(id, task);
   }
   async remove(id: string, createdBy:string) {
