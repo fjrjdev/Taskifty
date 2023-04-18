@@ -2,7 +2,7 @@ import { Router, Request, Response } from "express";
 import { authMiddleware } from "../middlewares/auth.middleware";
 import UsersService from "../services/users.service";
 import { schemasMiddleware } from "../middlewares/schemas.middleware";
-import { userUpdateSchema } from "../schemas/user";
+import { userUpdateSchema } from "../schemas/user.schema";
 
 const router = Router();
 router.get("/profile", authMiddleware, async (req: Request, res: Response) => {

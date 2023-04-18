@@ -1,7 +1,7 @@
 import { schemasMiddleware } from "../middlewares/schemas.middleware";
 import { Router } from "express";
 import AuthService from "../services/auth.service";
-import { userSchema } from "../schemas/user";
+import { userSchema, userSignInSchema } from "../schemas/user.schema";
 
 const router = Router();
 
@@ -14,7 +14,7 @@ router.post("/signup", schemasMiddleware(userSchema), async (req, res) => {
   });
 });
 
-router.post("/signin", async (req, res) => {
+router.post("/signin", schemasMiddleware(userSignInSchema), async (req, res) => {
   const tokens = await AuthService.login(req.body);
   return res.status(200).send({ ...tokens });
 });
