@@ -1,7 +1,7 @@
 {
-  "name": "taskfy",
+  "name": "taskifty",
   "version": "1.0.0",
-  "description": "taskify is a task management app that helps you organize daily activities. Prioritize tasks, set deadlines, get notifications, and more. The intuitive interface and powerful features increase productivity and keep you focused on the most important activities.",
+  "description": "Taskifty is a task management app that helps you organize daily activities. Prioritize tasks, set deadlines, get notifications, and more. The intuitive interface and powerful features increase productivity and keep you focused on the most important activities.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
