@@ -1,4 +1,3 @@
-import { log } from "console";
 import AppError from "../errors/appError";
 import { ITask } from "../models/task.model";
 import { ITaskList } from "../models/taskList.model";
@@ -6,13 +5,13 @@ import TaskRepository from "../repositories/task.repository";
 import TaskListRepository from "../repositories/taskList.repository";
 
 class TasksListService {
-  getAll() {
-    return TaskListRepository.getAll();
+  getAll(userId: string) {
+    return TaskListRepository.getAllByUser(userId);
   }
-  create(createdBy: string, taskList: ITaskList) {
-    taskList.createdBy = createdBy;
-    return TaskListRepository.create(taskList);
+  getAllShared(userId: string) {
+    return TaskListRepository.getAllSharedWith(userId);
   }
+
   async getById(taskListId: string, userId: string) {
     const taskListExists = await TaskListRepository.verifyIfIdExists(
       taskListId
@@ -38,6 +37,10 @@ class TasksListService {
     }
 
     return currentTaskList;
+  }
+  create(createdBy: string, taskList: ITaskList) {
+    taskList.createdBy = createdBy;
+    return TaskListRepository.create(taskList);
   }
   async update(id: string, taskList: Partial<ITaskList>, userId: string) {
     const taskListExists = await TaskListRepository.verifyIfIdExists(id);
