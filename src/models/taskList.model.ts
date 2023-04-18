@@ -5,7 +5,7 @@ import { IUser } from "./user.model";
 export interface ITaskList  extends Document{
   name: string;
   tasks: string[];
-  sharedWidth: string[];
+  sharedWith: string[];
   createdBy: string;
   updatedBy: string;
   createdAt: string | Date;
